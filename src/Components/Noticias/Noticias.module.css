@@ -1,0 +1,22 @@
+.container{
+    margin: 80px 85px 16px 85px;
+    padding-inline: 12px; 
+}
+
+img{
+    border-radius: 1rem;
+    width: 20rem;
+}
+
+.noticia{
+    padding-bottom: 1rem;
+    display: flex;
+    gap: 5rem;
+    border-bottom: solid 1px gray;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}

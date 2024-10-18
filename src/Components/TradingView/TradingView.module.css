@@ -1,0 +1,7 @@
+.trading_view{
+    height: 3rem;
+    background-color: #a0d0d0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
