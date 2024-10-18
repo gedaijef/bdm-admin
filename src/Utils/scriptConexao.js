@@ -1,5 +1,5 @@
 export async function addUser(name, phone, email, profession, cpf, categorias) {
-  const url = new URL("http://localhost:3001/client/addCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
   console.log(name, phone, email, profession, cpf, categorias);
 
   const body = {
@@ -23,7 +23,7 @@ export async function addUser(name, phone, email, profession, cpf, categorias) {
 }
 
 export async function searchNews(categorias, order) {
-  const url = new URL("http://localhost:3001/client/addCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
   
   const body = {
     categorias: categorias
@@ -41,7 +41,7 @@ export async function searchNews(categorias, order) {
 }
 
 export async function deleteCliente(cpf){
-  const url = new URL("http://localhost:3001/client/deleteCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
   
   const body = {
     cpf: cpf
@@ -59,7 +59,7 @@ export async function deleteCliente(cpf){
 }
 
 export async function searchCliente(cpf){
-  const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
   
   const body = {
     cpf: cpf
@@ -78,7 +78,7 @@ export async function searchCliente(cpf){
 
 let categorias = [];
 export async function listCategories() {
-  const url = new URL("http://localhost:3001/categorie/listCategories");
+  const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
 
   const response = await fetch(url, { method: "GET" });
 
