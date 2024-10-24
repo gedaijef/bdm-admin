@@ -7,10 +7,10 @@ const Introducao = ({ titulo, texto, color }) => {
   return (
     <div className={style.container}>
       <div className={style.content} style={textColor}>
-        <h2>
+        <h2 className={style.titulo}>
           {titulo}
         </h2>
-        <p>
+        <p classnName={style.texto}>
           {texto}
         </p>
       </div>

@@ -1,5 +1,5 @@
 export async function addUser(name, phone, email, profession, cpf, categorias) {
-  const url = new URL("http://localhost:3001/client/addCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
   console.log(name, phone, email, profession, cpf, categorias);
 
   const body = {
@@ -23,7 +23,7 @@ export async function addUser(name, phone, email, profession, cpf, categorias) {
 }
 
 export async function searchNews(categorias, order) {
-  const url = new URL("http://localhost:3001/client/addCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
   
   const body = {
     categorias: categorias
@@ -41,7 +41,7 @@ export async function searchNews(categorias, order) {
 }
 
 export async function deleteCliente(cpf){
-  const url = new URL("http://localhost:3001/client/deleteCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
   
   const body = {
     cpf: cpf
@@ -84,4 +84,56 @@ export async function listCategories() {
 
   categorias = await response.json();
   return categorias;
+}
+
+export async function listNews(categoria, data) {
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchNews");
+
+  const body = {};
+  if (categoria) body.categoria = categoria;
+  if (data) body.data = data;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}
+
+export async function listNewsByCategory(categoria) {
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
+
+  const body = {};
+  if (categoria) body.categoria = categoria;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}
+
+export async function listNewsByDate(data) {
+  const url = new URL("https://bdm-back-end.onrender.com/news/SelectByDate");
+
+  const body = {};
+  if (data) body.data = data;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
 }

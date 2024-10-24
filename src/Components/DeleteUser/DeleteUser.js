@@ -17,16 +17,21 @@ const DeleteUser = () => {
 
   const formatadorTelefone = (tel) => {
     if (!tel) return "";
-    const formatado = tel.replace(/^(\d{2})(\d{2})(\d{5})(\d{4})$/, "+$1($2)$3-$4");
+    const formatado = tel.replace(
+      /^(\d{2})(\d{2})(\d{5})(\d{4})$/,
+      "+$1($2)$3-$4"
+    );
     return formatado;
   };
 
   const formatadorCpf = (cpf) => {
     if (!cpf) return "";
-    const formatado = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, `$1.$2.$3-$4`);
+    const formatado = cpf.replace(
+      /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
+      `$1.$2.$3-$4`
+    );
     return formatado;
   };
-  
 
   const clickAdd = (event) => {
     setIsLoading(true);
@@ -53,15 +58,19 @@ const DeleteUser = () => {
   const deleteUser = () => {
     setUserData(null);
     setResponseMessage("Usuário deletado com sucesso.");
-    deleteCliente(userData.cpf)
+    deleteCliente(userData.cpf);
   };
 
   return (
     <div>
       <div className={style.content}>
-      <Introducao color="#ffffff" titulo="Deletar Usuário" texto={`
+        <Introducao
+          color="#ffffff"
+          titulo="Deletar Usuário"
+          texto={`
             Pesquise o usuário que você deseja excluir pelo CPF e exclua-o
-            `}/>
+            `}
+        />
         <div className={style.form}>
           <div className={style.row}></div>
           <div className={style.row}>
@@ -85,20 +94,32 @@ const DeleteUser = () => {
             {userData && (
               <div className={style.card}>
                 <div className={style.row_info}>
-                <div><h3>Nome: </h3><p>{userData.nome}</p></div>
-                <div><h3>Telefone: </h3><p>{formatadorTelefone(userData.numero)}</p></div>
+                  <div>
+                    <h3>Nome: </h3>
+                    <p>{userData.nome}</p>
+                  </div>
+                  <div>
+                    <h3>Telefone: </h3>
+                    <p>{formatadorTelefone(userData.numero)}</p>
+                  </div>
                 </div>
                 <div className={style.row_info}>
-                <div><h3>Email: </h3><p>{userData.email}</p></div>
-                <div><h3>CPF: </h3><p>{formatadorCpf(userData.cpf)}</p></div>
+                  <div>
+                    <h3>Email: </h3>
+                    <p>{userData.email}</p>
+                  </div>
+                  <div>
+                    <h3>CPF: </h3>
+                    <p>{formatadorCpf(userData.cpf)}</p>
+                  </div>
                 </div>
                 <div className={style.container_button}>
-                <button onClick={deleteUser} className={style.btn_edit}>
-                  Editar informações
-                </button>
-                <button onClick={deleteUser} className={style.btn_exclude}>
-                  Excluir usuário
-                </button>
+                  {/* <button onClick={deleteUser} className={style.btn_edit}>
+                    Editar informações
+                  </button> */}
+                  <button onClick={deleteUser} className={style.btn_exclude}>
+                    Excluir usuário
+                  </button>
                 </div>
               </div>
             )}

@@ -11,6 +11,14 @@
     justify-content: center;
 }
 
+.titulo{
+    text-align: center;
+}
+
+.texto{
+    text-align: center;
+}
+
 h2{
     font-weight: 700;
     font-size: 40px;
