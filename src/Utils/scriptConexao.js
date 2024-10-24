@@ -59,7 +59,7 @@ export async function deleteCliente(cpf){
 }
 
 export async function searchCliente(cpf){
-  const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
   
   const body = {
     cpf: cpf
@@ -78,7 +78,7 @@ export async function searchCliente(cpf){
 
 let categorias = [];
 export async function listCategories() {
-  const url = new URL("http://localhost:3001/categorie/listCategories");
+  const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
 
   const response = await fetch(url, { method: "GET" });
 
