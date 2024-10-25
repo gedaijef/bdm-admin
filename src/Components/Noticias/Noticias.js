@@ -16,7 +16,7 @@ const Noticias = () => {
   const focusCategoria = () => {
     listCategories().then((resultado) => {
       setCategorias(
-        resultado.map((item) => ({ value: item.codigo, label: item.nome }))
+        resultado.map((item) => ({ value: item.id, label: item.name }))
       );
     });
   };
