@@ -1,6 +1,5 @@
 export async function addUser(name, phone, email, profession, cpf, categorias) {
   const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
-  console.log(name, phone, email, profession, cpf, categorias);
 
   const body = {
     nome: name,

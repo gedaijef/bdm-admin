@@ -96,11 +96,11 @@ const DeleteUser = () => {
                 <div className={style.row_info}>
                   <div>
                     <h3>Nome: </h3>
-                    <p>{userData.nome}</p>
+                    <p>{userData.name}</p>
                   </div>
                   <div>
                     <h3>Telefone: </h3>
-                    <p>{formatadorTelefone(userData.numero)}</p>
+                    <p>{formatadorTelefone(userData.phone_number)}</p>
                   </div>
                 </div>
                 <div className={style.row_info}>

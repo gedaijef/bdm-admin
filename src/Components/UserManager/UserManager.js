@@ -75,7 +75,6 @@ const UserManager = () => {
   const clickAdd = (event) => {
     setIsLoading(true);
     setResponseMessage("");
-    console.log(name, phone, email, profession, cpf, selectedCategorias);
   
     // Cria a string com as categorias selecionadas, separadas por vírgula
     const categoriasConcatenadas = selectedCategorias.map(categoria => categoria.value).join(",");
