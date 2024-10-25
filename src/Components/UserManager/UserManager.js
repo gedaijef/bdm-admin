@@ -29,7 +29,7 @@ const UserManager = () => {
   const focusCategoria = () => {
     listCategories().then((resultado) => {
       setCategorias(
-        resultado.map((item) => ({ value: item.codigo, label: item.nome }))
+        resultado.map((item) => ({ value: item.id, label: item.name }))
       ); // Formata o resultado para o react-select
     });
   };
