@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import style from "./UserManager.module.css";
 import { addUser, listCategories } from "../../Utils/scriptConexao";
 import InputMask from "react-input-mask";
-import Select from 'react-select';
+import Select from "react-select";
 import Introducao from "../Intruducao/Introducao";
-<link rel="stylesheet" href="./UserManager.module.css" />
+<link rel="stylesheet" href="./UserManager.module.css" />;
 
 const UserManager = () => {
   // REFs
@@ -18,6 +18,8 @@ const UserManager = () => {
   const [phone, setPhone] = useState("");
   const [selectedCategorias, setSelectedCategorias] = useState([]);
   const [profession, setProfession] = useState("");
+  const [company, setCompany] = useState("");
+  const [birth, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
 
@@ -30,7 +32,7 @@ const UserManager = () => {
     listCategories().then((resultado) => {
       setCategorias(
         resultado.map((item) => ({ value: item.id, label: item.name }))
-      ); // Formata o resultado para o react-select
+      );
     });
   };
 
@@ -57,6 +59,14 @@ const UserManager = () => {
     setProfession(event.target.value);
   };
 
+  const changeCompany = (event) => {
+    setCompany(event.target.value);
+  };
+
+  const changeBirth = (event) => {
+    setBirthDate(event.target.value);
+  };
+
   const changeEmail = (event) => {
     setEmail(event.target.value);
   };
@@ -69,25 +79,33 @@ const UserManager = () => {
 
   // Manipulando seleções múltiplas
   const handleSelectChange = (selectedOptions) => {
-    setSelectedCategorias(selectedOptions); 
+    setSelectedCategorias(selectedOptions);
   };
 
   const clickAdd = (event) => {
     setIsLoading(true);
     setResponseMessage("");
-  
+
     // Cria a string com as categorias selecionadas, separadas por vírgula
-    const categoriasConcatenadas = selectedCategorias.map(categoria => categoria.value).join(",");
-  
+    const categoriasConcatenadas = selectedCategorias
+      .map((categoria) => categoria.value)
+      .join(",");
+
+
+    const [dia, mes, ano] = birth.split('/');
+    const dataFormatada = `${ano}-${mes}-${dia}`;
+
     let addUserResponse = addUser(
       name,
       phone,
       email,
       profession,
       cpf,
-      categoriasConcatenadas
+      categoriasConcatenadas,
+      company,
+      dataFormatada
     );
-  
+
     addUserResponse
       .then((response) => response.json())
       .then((response) => {
@@ -107,9 +125,13 @@ const UserManager = () => {
   return (
     <div>
       <div className={style.content}>
-      <Introducao color="#ffffff" titulo="Adicionar Usuário" texto={`
+        <Introducao
+          color="#ffffff"
+          titulo="Adicionar Usuário"
+          texto={`
             Preencha os dados do usuário que você deseja adicionar
-            `}/>
+            `}
+        />
         <div className={style.form}>
           <div className={style.row}>
             <div className={style.campo_form}>
@@ -137,13 +159,35 @@ const UserManager = () => {
           </div>
           <div className={style.row}>
             <div className={style.campo_form}>
-              <label htmlFor="Profissao">Profissão:</label>
+              <label htmlFor="Profissao">Profissão/Cargo:</label>
               <input
                 onChange={changeProfession}
                 value={profession}
                 name="Profissao"
                 type="text"
               />
+            </div>
+            <div className={style.campo_form}>
+              <label htmlFor="Empresa">Empresa:</label>
+              <input
+                onChange={changeCompany}
+                value={company}
+                name="empresa"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className={style.row}>
+            <div className={style.campo_form}>
+              <label htmlFor="nascimento">Data de Nascimento:</label>
+              <InputMask
+                mask="99/99/9999"
+                onChange={changeBirth}
+                value={birth}
+                placeholder="ex: 02/04/1994"
+              >
+                {(inputProps) => <input {...inputProps} type="text" />}
+              </InputMask>
             </div>
             <div className={style.campo_form}>
               <label htmlFor="Email">E-mail:</label>
@@ -186,7 +230,7 @@ const UserManager = () => {
             <button onClick={clickAdd} className={style.btn_avancar}>
               {isLoading ? "Carregando..." : "ADICIONAR USUÁRIO"}
             </button>
-            
+
             {responseMessage && (
               <p className={style.resposta}>{responseMessage}</p>
             )}
