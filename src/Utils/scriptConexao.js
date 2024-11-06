@@ -25,8 +25,8 @@ export async function addUser(name, phone, email, profession, cpf, categorias,em
 }
 
 export async function deleteCliente(phone){
-  const url = new URL("http://localhost:3001/client/deleteCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
+  // const url = new URL("http://localhost:3001/client/deleteCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
   
   const body = {
     phone: phone
@@ -44,8 +44,8 @@ export async function deleteCliente(phone){
 }
 
 export async function searchCliente(cpf){
-  const url = new URL("http://localhost:3001/client/searchCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
+  // const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
   
   const body = {
     cpf: cpf
@@ -63,8 +63,8 @@ export async function searchCliente(cpf){
 }
 
 export async function searchClienteByPhone(phone){
-  const url = new URL("http://localhost:3001/client/searchClienteByPhone");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/searchClienteByPhone");
+  // const url = new URL("http://localhost:3001/client/searchClienteByPhone");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchClienteByPhone");
   
   const body = {
     phone: phone
@@ -83,8 +83,8 @@ export async function searchClienteByPhone(phone){
 
 let categorias = [];
 export async function listCategories() {
-  const url = new URL("http://localhost:3001/categorie/listCategories");
-  // const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
+  // const url = new URL("http://localhost:3001/categorie/listCategories");
+  const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
 
   const response = await fetch(url, { method: "GET" });
 
@@ -93,8 +93,8 @@ export async function listCategories() {
 }
 
 export async function listNewsByDateRange(data_inicio,data_fim,categoria){
-  const url = new URL("http://localhost:3001/news/SearchNews");
-  // const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
+  // const url = new URL("http://localhost:3001/news/SearchNews");
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
 
   const body = {data_inicio,data_fim,categoria};
 
