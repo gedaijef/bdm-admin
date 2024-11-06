@@ -1,4 +1,5 @@
 .container{
+    align-items: center;
     margin: 1rem;
     padding-inline: 12px; 
     display: flex;
@@ -24,34 +25,62 @@
     padding: 8px 30px;
 }
 
-.resultado{
+.buttonContainer{
+    display: flex;
+    gap: 1rem;
+}
+
+.btn_limpar{
+    border: 1px solid #181818;
+    color: black;
+    background-color: #00000000;
+}
+
+.btn_limpar:hover{
+    color: white;
+}
+
+.cards{
     gap: 1rem;
     display: flex;
-    width: 100%;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.resultado{
+    padding: 2rem;
 }
 
 .conteudoResultado{
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    
+}
+
+.p{
+    text-align: center;
 }
 
 .card{
     background-color: #181818;
     border-radius: 1rem;
-    padding: 3rem;
+    padding : 5rem;
+    text-align: center;
     color: white;
-    align-items: flex-start;
+    width: 100%;
+    height: 10rem;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
+
 .row_info{
+
     display: flex;
     gap: 100px;
-    justify-content: left;
+    justify-content: center;
 }
 
 .error{
@@ -60,6 +89,9 @@
 }
 
 .numLinhas{
-    margin-bottom: 50px;
-    font-size: 30px;
+    font-size: 50px;
+}
+
+.legendaResultado{
+    font-size: 15px;
 }

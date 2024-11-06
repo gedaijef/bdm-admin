@@ -1,11 +1,20 @@
-import React, { useState } from "react";
 import style from "./DeleteUser.module.css";
-import { deleteCliente, searchCliente } from "../../Utils/scriptConexao";
+import { deleteCliente, searchClienteByPhone } from "../../Utils/scriptConexao";
 import InputMask from "react-input-mask";
-import Introducao from "../Intruducao/Introducao";
+import Introducao from "../Introducao/Introducao";
+import React, { useState, useEffect } from "react";
+import { addUser, listCategories } from "../../Utils/scriptConexao";
+import InputLabel from '@mui/material/InputLabel';
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
 const DeleteUser = () => {
   const [cpf, setCpf] = useState("");
+  const [phone, setPhone] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
@@ -13,6 +22,11 @@ const DeleteUser = () => {
   const changeCpf = (event) => {
     const numericCpf = event.target.value.replace(/\D/g, "");
     setCpf(numericCpf);
+  };
+
+  const changePhone = (event) => {
+    const numericPhone = event.target.value.replace(/\D/g, "");
+    setPhone(numericPhone);
   };
 
   const formatadorTelefone = (tel) => {
@@ -37,11 +51,11 @@ const DeleteUser = () => {
     setIsLoading(true);
     setResponseMessage("");
     setUserData(null);
-    searchCliente(cpf)
-      .then((response) => response.json()) // Primeiro `then()` para converter a resposta para JSON
+    searchClienteByPhone(phone)
+      .then((response) => response.json())
       .then((data) => {
         if (data && data.length > 0) {
-          setUserData(data[0]); // Acessando o primeiro item do array
+          setUserData(data[0]);
           setResponseMessage("Usuário encontrado");
         } else {
           setResponseMessage("Usuário não encontrado.");
@@ -58,7 +72,7 @@ const DeleteUser = () => {
   const deleteUser = () => {
     setUserData(null);
     setResponseMessage("Usuário deletado com sucesso.");
-    deleteCliente(userData.cpf);
+    deleteCliente(phone);
   };
 
   return (
@@ -72,19 +86,21 @@ const DeleteUser = () => {
             `}
         />
         <div className={style.form}>
-          <div className={style.row}></div>
           <div className={style.row}>
-            <div className={style.campo_form}>
-              <label htmlFor="CPF">CPF:</label>
-              <InputMask
-                mask="999.999.999-99"
-                onChange={changeCpf}
-                value={cpf}
-                placeholder="***.***.***-**"
-              >
-                {(inputProps) => <input {...inputProps} type="text" />}
-              </InputMask>
-            </div>
+          <InputMask
+            mask="+99 (99) 99999-9999"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+          >
+            {(inputProps) => (
+              <TextField
+                {...inputProps}
+                placeholder="Telefone"
+                className={style.inputs}
+                variant="outlined"
+              />
+            )}
+          </InputMask>
             <button onClick={clickAdd} className={style.btn_pesquisa}>
               {isLoading ? "Carregando..." : "Pesquisar"}
             </button>

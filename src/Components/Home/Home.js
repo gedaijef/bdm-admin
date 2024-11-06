@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './Home.module.css'
 import { Link } from "react-router-dom";
-import Introducao from "../Intruducao/Introducao"
+import Introducao from "../Introducao/Introducao"
 
 const Home = () => {
   return (

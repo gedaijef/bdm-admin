@@ -24,8 +24,28 @@ export async function addUser(name, phone, email, profession, cpf, categorias,em
   return response;
 }
 
-export async function deleteCliente(cpf){
-  const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
+export async function deleteCliente(phone){
+  const url = new URL("http://localhost:3001/client/deleteCliente");
+  // const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
+  
+  const body = {
+    phone: phone
+  };
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}
+
+export async function searchCliente(cpf){
+  const url = new URL("http://localhost:3001/client/searchCliente");
+  // const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
   
   const body = {
     cpf: cpf
@@ -42,11 +62,12 @@ export async function deleteCliente(cpf){
   return response;
 }
 
-export async function searchCliente(cpf){
-  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
+export async function searchClienteByPhone(phone){
+  const url = new URL("http://localhost:3001/client/searchClienteByPhone");
+  // const url = new URL("https://bdm-back-end.onrender.com/client/searchClienteByPhone");
   
   const body = {
-    cpf: cpf
+    phone: phone
   };
 
   const response = await fetch(url, {
@@ -62,7 +83,8 @@ export async function searchCliente(cpf){
 
 let categorias = [];
 export async function listCategories() {
-  const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
+  const url = new URL("http://localhost:3001/categorie/listCategories");
+  // const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
 
   const response = await fetch(url, { method: "GET" });
 
@@ -70,46 +92,11 @@ export async function listCategories() {
   return categorias;
 }
 
-export async function listNews(categoria, data) {
-  const url = new URL("https://bdm-back-end.onrender.com/news/SearchNews");
+export async function listNewsByDateRange(data_inicio,data_fim,categoria){
+  const url = new URL("http://localhost:3001/news/SearchNews");
+  // const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
 
-  const body = {};
-  if (categoria) body.categoria = categoria;
-  if (data) body.data = data;
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-
-  return response;
-}
-
-export async function listNewsByCategory(categoria) {
-  const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
-
-  const body = {};
-  if (categoria) body.categoria = categoria;
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  });
-
-  return response;
-}
-
-export async function listNewsByDate(data) {
-  const url = new URL("https://bdm-back-end.onrender.com/news/SelectByDate");
-
-  const body = {};
-  if (data) body.data = data;
+  const body = {data_inicio,data_fim,categoria};
 
   const response = await fetch(url, {
     method: "POST",
