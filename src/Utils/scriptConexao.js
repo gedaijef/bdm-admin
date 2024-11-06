@@ -94,7 +94,7 @@ export async function listCategories() {
 
 export async function listNewsByDateRange(data_inicio,data_fim,categoria){
   // const url = new URL("http://localhost:3001/news/SearchNews");
-  const url = new URL("https://bdm-back-end.onrender.com/news/SearchByCategory");
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchNews");
 
   const body = {data_inicio,data_fim,categoria};
 
