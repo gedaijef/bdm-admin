@@ -148,9 +148,6 @@ const Noticias = () => {
                     .join(", ")
             }
           >
-            <MenuItem value="">
-              <em>Selecione uma categoria</em>
-            </MenuItem>
             {categoria.map((cat) => (
               <MenuItem key={cat.value} value={cat.value}>
                 {cat.label}
