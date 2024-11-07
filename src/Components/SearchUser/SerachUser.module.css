@@ -1,0 +1,170 @@
+.campo_form {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+button{
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+.buttonContainer {
+    color: white;
+    gap: 1rem;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputs{
+    background-color: white;
+    border-radius: 4px;
+    width: 500px;
+}
+
+
+.btn_pesquisa{
+    height: 52px;
+    width: fit-content;
+    background-color: #181818;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 30px;
+}
+
+.row {
+    gap: 1rem;
+    align-items: end;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.container_button{
+    display: flex;
+    gap: 1rem;
+}
+
+.row_info{
+    display: flex;
+    gap: 100px;
+    justify-content: left;
+}
+
+h2{
+    margin: 1rem 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+label {
+    padding: 1rem;
+    padding-inline: 0;
+    color:#ffffff;
+}
+
+* {
+    border-radius: 0;
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat", sans-serif
+}
+
+.card{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 2rem;
+    color: #181818;
+}
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding-inline: 3rem;
+    padding-bottom: 4rem;
+    background-color: #2d2d2d;
+}
+
+h3{
+    font-size: 17px;
+}
+
+p{
+    text-align: left;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.campo{
+    margin-top: 2rem;
+}
+
+h4{
+    font-size: 30px;
+}
+
+button{
+    color: #ffffff;
+}
+
+a {
+    color: #1469e4;
+    text-decoration: none;
+}
+
+input {
+    font-weight: 400;
+    color: #2d2d2d;
+    height: 20px;
+    padding: 8px 16px;
+}
+
+select {
+    font-weight: 400;
+    color: #2d2d2d;
+    height: 40px;
+    padding: 8px 16px;
+    width: 100%;
+}
+
+option {
+    background-color: #e2e2e2;
+    color: #181818;
+}
+
+.btn_avancar {
+    margin-top: 2rem;
+    width: 50%;
+    background-color: #181818;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+.btn_edit{
+    width: 100%;
+    background-color: #181818;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+.btn_exclude{
+    width: 100%;
+    background-color: #181818;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+}

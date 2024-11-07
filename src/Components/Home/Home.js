@@ -17,6 +17,11 @@ const Home = () => {
             </Link>
         </button>
         <button>
+            <Link className={style.link} to="/listar-usuario">
+                Listar Usuários
+            </Link>
+        </button>
+        <button>
             <Link className={style.link} to="/deletar-usuario">
                 Deletar Usuário
             </Link>

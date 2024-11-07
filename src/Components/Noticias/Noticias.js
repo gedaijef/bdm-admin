@@ -11,6 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TextField } from "@mui/material";
+import "dayjs/locale/pt-br";
 
 const Noticias = () => {
   const [selectedCategorias, setSelectedCategorias] = useState([]);
@@ -133,6 +134,7 @@ const Noticias = () => {
         <FormControl>
           <Select
             multiple
+            className={style.selectCategoria}
             value={selectedCategorias}
             onChange={handleSelectChange}
             input={<OutlinedInput />}
@@ -162,6 +164,7 @@ const Noticias = () => {
             value={startDate}
             onChange={handleStartDateChange}
             maxDate={dayjs()}
+            inputFormat="DD/MM/YYYY"
             renderInput={(params) => <TextField {...params} />}
           />
           <DatePicker
@@ -170,6 +173,7 @@ const Noticias = () => {
             onChange={handleEndDateChange}
             minDate={startDate}
             maxDate={dayjs()}
+            inputFormat="DD/MM/YYYY"
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
@@ -199,7 +203,7 @@ const Noticias = () => {
             <div className={style.card}>
                 <div className={style.conteudoResultado}>
                   <h3 className={style.numLinhas}>{numPessoas}</h3>
-                  <h3 className={style.legendaResultado}>Pessoas receberam</h3>
+                  <h3 className={style.legendaResultado}>Mensagens enviadas</h3>
                 </div>
             </div>
           </div>

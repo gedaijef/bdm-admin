@@ -82,7 +82,7 @@ const DeleteUser = () => {
           color="#ffffff"
           titulo="Deletar Usuário"
           texto={`
-            Pesquise o usuário que você deseja excluir pelo CPF e exclua-o
+            Pesquise o número de telefone do usuário que você deseja excluir
             `}
         />
         <div className={style.form}>

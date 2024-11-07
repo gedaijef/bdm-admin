@@ -81,6 +81,21 @@ export async function searchClienteByPhone(phone){
   return response;
 }
 
+export async function searchAllClients(){
+  // const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+
+  return response;
+}
+
+
 let categorias = [];
 export async function listCategories() {
   // const url = new URL("http://localhost:3001/categorie/listCategories");

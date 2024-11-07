@@ -16,6 +16,9 @@ const Menu = () => {
           <Link className={style.dropdownItem} to="/adicionar-usuario">
             Adicionar Usuário
           </Link>
+          <Link className={style.dropdownItem} to="/listar-usuario">
+            Listar Usuários
+          </Link>
           <Link className={style.dropdownItem} to="/deletar-usuario">
             Deletar Usuário
           </Link>

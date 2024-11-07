@@ -8,6 +8,7 @@ import Noticias from "../Noticias/Noticias"
 import Home from "../Home/Home"
 import DeleteUser from "../DeleteUser/DeleteUser";
 import TradingView from "../TradingView/TradingView";
+import SearchUser from "../SearchUser/SearchUser"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/adicionar-usuario" element={<UserManager />} />
           <Route path="/deletar-usuario" element={<DeleteUser />} />
+          <Route path="listar-usuario" element={<SearchUser />} />
           <Route path="/" element={<Home/>} />
           <Route path="/noticias" element={<Noticias/>} />
         </Routes>
