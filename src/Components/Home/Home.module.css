@@ -16,7 +16,9 @@ button{
 }
 
 button:hover{
-    background-color: #232323;
+    cursor: pointer;
+    background-color: #444444;
+    font-weight: 700;
 }
 
 .link{

@@ -1,5 +1,6 @@
 .img{
     width: 216px;
+    
 }
 
 .buttons{
@@ -16,6 +17,7 @@ h1{
     align-items: center;
     display: flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 .container{

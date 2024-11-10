@@ -15,6 +15,7 @@
 }
 
 .row {
+    gap: 10px;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -100,7 +101,7 @@ option {
     display: flex;
     align-items: center;
     width: 50%;
-    background-color: #181818;
+    background-color: #000000;
     border: none;
     border-radius: 6px;
     padding: 8px 16px;

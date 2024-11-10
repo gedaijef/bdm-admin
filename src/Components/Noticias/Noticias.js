@@ -70,8 +70,6 @@ const Noticias = () => {
     const dataInicio = startDate ? startDate.format("YYYY-MM-DD") : null;
     const dataFim = endDate ? endDate.format("YYYY-MM-DD") : null;
 
-    console.log(dataInicio, dataFim, selectedCategoryString);
-
     listNewsByDateRange(dataInicio, dataFim, selectedCategoryString)
       .then((response) => response.json())
       .then((result) => {
@@ -137,6 +135,33 @@ const Noticias = () => {
             className={style.selectCategoria}
             value={selectedCategorias}
             onChange={handleSelectChange}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    transition: 1,
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
+                    fontWeight: 400,
+                    "&:hover": {
+                      backgroundColor: "#181818",
+                      color: "#ffffff",
+                      fontWeight: 700,
+                    },
+                    "&.Mui-selected": {
+                      backgroundColor: "#181818",
+                      color: "#ffffff",
+                      fontWeight: 700,
+                    },
+                    "&.Mui-selected:hover": {
+                      backgroundColor: "#292929",
+                      color: "#ffffff",
+                      fontWeight: 700,
+                    },
+                  },
+                },
+              },
+            }}
             input={<OutlinedInput />}
             displayEmpty
             renderValue={(selected) =>
@@ -191,20 +216,24 @@ const Noticias = () => {
       </div>
       {dadosPesquisa && (
         <div className={style.resultado}>
-          <p><strong>Categorias:</strong> {dadosPesquisa.categoria}</p>
-          <p><strong>Data Pesquisada:</strong> {dadosPesquisa.data}</p>
+          <p>
+            <strong>Categorias:</strong> {dadosPesquisa.categoria}
+          </p>
+          <p>
+            <strong>Data Pesquisada:</strong> {dadosPesquisa.data}
+          </p>
           <div className={style.cards}>
             <div className={style.card}>
-                <div className={style.conteudoResultado}>
-                  <h3 className={style.numLinhas}>{numLinhas}</h3>
-                  <h3 className={style.legendaResultado}>Notícias escritas</h3>
-                </div>
+              <div className={style.conteudoResultado}>
+                <h3 className={style.numLinhas}>{numLinhas}</h3>
+                <h3 className={style.legendaResultado}>Notícias escritas</h3>
+              </div>
             </div>
             <div className={style.card}>
-                <div className={style.conteudoResultado}>
-                  <h3 className={style.numLinhas}>{numPessoas}</h3>
-                  <h3 className={style.legendaResultado}>Mensagens enviadas</h3>
-                </div>
+              <div className={style.conteudoResultado}>
+                <h3 className={style.numLinhas}>{numPessoas}</h3>
+                <h3 className={style.legendaResultado}>Mensagens enviadas</h3>
+              </div>
             </div>
           </div>
         </div>

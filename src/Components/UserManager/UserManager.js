@@ -50,6 +50,18 @@ const UserManager = () => {
     setSelectedCategorias(event.target.value);
   };
 
+  const clearFilters = () => {
+    setSelectedCategorias([]);
+    setPhone('')
+    setCompany('')
+    setBirthDate('')
+    setEmail('')
+    setProfession('')
+    setName('')
+    setCpf('')
+  };
+
+
   const handleClickAdd = async () => {
     setIsLoading(true);
     setResponseMessage("");
@@ -71,7 +83,12 @@ const UserManager = () => {
       );
       const result = await response.json();
       setIsLoading(false);
-      setResponseMessage(result.status !== 201 ? result.error : result.message);
+      if(result.status !== 201){
+        setResponseMessage(result.error)        
+      }else{
+      setResponseMessage(result.message)
+      clearFilters()
+      }
     } catch (error) {
       setIsLoading(false);
       setResponseMessage("Ocorreu um erro. Tente novamente.");
@@ -88,7 +105,7 @@ const UserManager = () => {
       <div className={style.form}>
         <div className={style.row}>
           <TextField
-          placeholder="Nome Completo"
+            placeholder="Nome Completo"
             variant="outlined"
             fullWidth
             className={style.inputs}
@@ -182,15 +199,46 @@ const UserManager = () => {
             )}
           </InputMask>
           <FormControl fullWidth margin="normal">
-             <Select
+            <Select
               multiple
               value={selectedCategorias}
               className={style.inputs}
+              MenuProps={{
+                PaperProps: {
+                  sx: {
+                    "& .MuiMenuItem-root": {
+                      transition: 1,
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
+                      fontWeight: 400,
+                      "&:hover": {
+                        backgroundColor: "#181818",
+                        color: "#ffffff",
+                        fontWeight: 700,
+                      },
+                      "&.Mui-selected": {
+                        backgroundColor: "#181818",
+                        color: "#ffffff",
+                        fontWeight: 700,
+                      },
+                      "&.Mui-selected:hover": {
+                        backgroundColor: "#292929",
+                        color: "#ffffff",
+                        fontWeight: 700,
+                      },
+                    },
+                  },
+                },
+              }}
               onChange={handleSelectChange}
-              input={<OutlinedInput/>}
-               renderValue={(selected) => selected
-                  .map((value) => categoria.find((cat) => cat.value === value)?.label)
-                  .join(', ')
+              input={<OutlinedInput />}
+              renderValue={(selected) =>
+                selected
+                  .map(
+                    (value) =>
+                      categoria.find((cat) => cat.value === value)?.label
+                  )
+                  .join(", ")
               }
             >
               {categoria.map((cat) => (
@@ -206,7 +254,9 @@ const UserManager = () => {
           <button onClick={handleClickAdd} className={style.btn_avancar}>
             {isLoading ? "Carregando..." : "ADICIONAR USUÁRIO"}
           </button>
-          {responseMessage && <p className={style.resposta}>{responseMessage}</p>}
+          {responseMessage && (
+            <p className={style.resposta}>{responseMessage}</p>
+          )}
         </div>
       </div>
     </div>

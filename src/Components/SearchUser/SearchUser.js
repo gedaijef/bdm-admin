@@ -1,13 +1,9 @@
-import style from "./SerachUser.module.css";
+import style from "./SearchUser.module.css";
 import { searchAllClients } from "../../Utils/scriptConexao";
-import InputMask from "react-input-mask";
 import Introducao from "../Introducao/Introducao";
 import React, { useState, useEffect } from "react";
-import TextField from "@mui/material/TextField";
 
 const SearchUser = () => {
-  const [cpf, setCpf] = useState("");
-  const [phone, setPhone] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState([]);
@@ -17,7 +13,6 @@ const SearchUser = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data && data.length > 0) {
-          console.log(data);
           setUserData(data);
           setResponseMessage("");
         } else {
