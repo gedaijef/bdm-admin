@@ -154,7 +154,7 @@ const Noticias = () => {
                       fontWeight: 700,
                     },
                     "&.Mui-selected:hover": {
-                      backgroundColor: "#292929",
+                      backgroundColor: "#444444",
                       color: "#ffffff",
                       fontWeight: 700,
                     },

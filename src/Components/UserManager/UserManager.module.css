@@ -3,6 +3,7 @@
     flex-direction: column;
     margin-bottom: 1rem;
     width: 45%;
+    gap: 1px
 }
 
 .buttonContainer {
@@ -15,15 +16,21 @@
 }
 
 .row {
-    gap: 10px;
+    gap: 24px;
     display: flex;
     width: 100%;
     justify-content: center;
 }
 
 .inputs{
+    margin: 0;
+    padding: 0;
     background-color: white;
     border-radius: 4px;
+}
+
+.inputs .MuiInputBase-root{
+    margin: 0;
 }
 
 .form {
@@ -42,7 +49,6 @@ label {
 
 * {
     border-radius: 0;
-    font-size: 13px;
     padding: 0;
     margin: 0;
     font-family: "Montserrat", sans-serif
@@ -98,6 +104,7 @@ option {
 }
 
 .btn_avancar {
+    margin: 16px;
     display: flex;
     align-items: center;
     width: 50%;

@@ -37,7 +37,9 @@ const UserManager = () => {
       try {
         const resultado = await listCategories();
         setCategorias(
-          resultado.map((item) => ({ value: item.id, label: item.name }))
+          resultado
+            .filter((item) => item.id !== 8 && item.id !== 9) // Filtra categorias com id 8 e 9
+            .map((item) => ({ value: item.id, label: item.name }))
         );
       } catch (error) {
         console.error("Erro ao carregar categorias:", error);
@@ -45,6 +47,7 @@ const UserManager = () => {
     };
     fetchCategorias();
   }, []);
+  
 
   const handleSelectChange = (event) => {
     setSelectedCategorias(event.target.value);
@@ -222,7 +225,7 @@ const UserManager = () => {
                         fontWeight: 700,
                       },
                       "&.Mui-selected:hover": {
-                        backgroundColor: "#292929",
+                        backgroundColor: "#444444",
                         color: "#ffffff",
                         fontWeight: 700,
                       },

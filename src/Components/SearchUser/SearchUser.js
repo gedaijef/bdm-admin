@@ -40,6 +40,13 @@ const SearchUser = () => {
     return formatado;
   };
 
+  const formatadorCategorias = (categorias) => {
+    if (!categorias) return "Não especificado";
+    const espaço = categorias.replace(',',`, \n`)
+    const formatado = espaço.slice(0, espaço.lastIndexOf(',')) + ' e' + espaço.slice(espaço.lastIndexOf(',') + 1);
+    return formatado;
+  };
+
   const formatadorData = (dataISO) => {
     if (!dataISO) return "Não especificado";
     const data = new Date(dataISO);
@@ -102,6 +109,10 @@ const SearchUser = () => {
                     <div className={style.campo}>
                       <h3>Cargo: </h3>
                       <p>{user.position || "Não especificado"}</p>
+                    </div>
+                    <div className={style.campo}>
+                      <h3>Categorias: </h3>
+                      <p>{formatadorCategorias(user.concat_categories) || "Não especificado"}</p>
                     </div>
                   </div>
                   <div className={style.container_button}></div>

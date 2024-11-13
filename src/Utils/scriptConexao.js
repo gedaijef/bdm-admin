@@ -1,4 +1,13 @@
-export async function addUser(name, phone, email, profession, cpf, categorias,empresa,data_nascimento) {
+export async function addUser(
+  name,
+  phone,
+  email,
+  profession,
+  cpf,
+  categorias,
+  empresa,
+  data_nascimento
+) {
   // const url = new URL("http://localhost:3001/client/addCliente");
   const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
 
@@ -89,7 +98,25 @@ export async function searchAllClients(){
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-    }
+    },
+  });
+
+  return response;
+}
+
+export async function login(password) {
+  // const url = new URL("http://localhost:3001/client/login");
+  const url = new URL("https://bdm-back-end.onrender.com/client/login");
+  const body = {
+    password: password
+  };
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
   });
 
   return response;

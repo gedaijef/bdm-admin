@@ -9,11 +9,13 @@ import Home from "../Home/Home"
 import DeleteUser from "../DeleteUser/DeleteUser";
 import TradingView from "../TradingView/TradingView";
 import SearchUser from "../SearchUser/SearchUser"
+import Login from "../Login/Login"
 
 function App() {
   return (
     <Router>
       <div>
+        <Login/>
         <Header />
         <Menu />
         <Routes>
