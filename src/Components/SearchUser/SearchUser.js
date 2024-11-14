@@ -42,8 +42,11 @@ const SearchUser = () => {
 
   const formatadorCategorias = (categorias) => {
     if (!categorias) return "Não especificado";
-    const espaço = categorias.replace(',',`, \n`)
-    const formatado = espaço.slice(0, espaço.lastIndexOf(',')) + ' e' + espaço.slice(espaço.lastIndexOf(',') + 1);
+    const espaço = categorias.replace(",", `, \n`);
+    const formatado =
+      espaço.slice(0, espaço.lastIndexOf(",")) +
+      " e" +
+      espaço.slice(espaço.lastIndexOf(",") + 1);
     return formatado;
   };
 
@@ -80,42 +83,47 @@ const SearchUser = () => {
             {userData &&
               userData.map((user, index) => (
                 <div key={index} className={style.card}>
-                  <div className={style.row_info}>
-                    <div>
-                      <h4>{user.name || "Não especificado"}</h4>
+                  <div className={style.content_card}>
+                    <div className={style.row_info}>
+                      <div>
+                        <h2 className={style.nome}>{user.name || "Não especificado"}</h2>
+                      </div>
                     </div>
+                    <div className={style.row_info}>
+                      <div className={style.campo}>
+                        <h3>Email: </h3>
+                        <p>{user.email || "Não especificado"}</p>
+                      </div>
+                      <div className={style.campo}>
+                        <h3>CPF: </h3>
+                        <p>{formatadorCpf(user.cpf)}</p>
+                      </div>
+                      <div className={style.campo}>
+                        <h3>Telefone: </h3>
+                        <p>{formatadorTelefone(user.phone_number)}</p>
+                      </div>
+                      <div className={style.campo}>
+                        <h3>Data de Nascimento: </h3>
+                        <p>{formatadorData(user.birth_date)}</p>
+                      </div>
+                      <div className={style.campo}>
+                        <h3>Empresa: </h3>
+                        <p>{user.company || "Não especificado"}</p>
+                      </div>
+                      <div className={style.campo}>
+                        <h3>Cargo: </h3>
+                        <p>{user.position || "Não especificado"}</p>
+                      </div>
+                      <div className={style.categorias}>
+                        <h3>Categorias: </h3>
+                        <p>
+                          {formatadorCategorias(user.concat_categories) ||
+                            "Não especificado"}
+                        </p>
+                      </div>
+                    </div>
+                    <div className={style.container_button}></div>
                   </div>
-                  <div className={style.row_info}>
-                    <div className={style.campo}>
-                      <h3>Email: </h3>
-                      <p>{user.email || "Não especificado"}</p>
-                    </div>
-                    <div className={style.campo}>
-                      <h3>CPF: </h3>
-                      <p>{formatadorCpf(user.cpf)}</p>
-                    </div>
-                    <div className={style.campo}>
-                      <h3>Telefone: </h3>
-                      <p>{formatadorTelefone(user.phone_number)}</p>
-                    </div>
-                    <div className={style.campo}>
-                      <h3>Data de Nascimento: </h3>
-                      <p>{formatadorData(user.birth_date)}</p>
-                    </div>
-                    <div className={style.campo}>
-                      <h3>Empresa: </h3>
-                      <p>{user.company || "Não especificado"}</p>
-                    </div>
-                    <div className={style.campo}>
-                      <h3>Cargo: </h3>
-                      <p>{user.position || "Não especificado"}</p>
-                    </div>
-                    <div className={style.categorias}>
-                      <h3>Categorias: </h3>
-                      <p>{formatadorCategorias(user.concat_categories) || "Não especificado"}</p>
-                    </div>
-                  </div>
-                  <div className={style.container_button}></div>
                 </div>
               ))}
           </div>
