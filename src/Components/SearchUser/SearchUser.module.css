@@ -49,7 +49,7 @@ button{
 
 .row_info{
     display: flex;
-    gap: 100px;
+    gap: 3rem;
     justify-content: left;
 }
 
@@ -107,7 +107,13 @@ p{
 }
 
 .campo{
+    width: 15rem;
     margin-top: 2rem;
+}
+
+.categorias{
+    margin-top: 2rem;
+    width: 50%;
 }
 
 h4{

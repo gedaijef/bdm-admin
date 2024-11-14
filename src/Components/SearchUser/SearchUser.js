@@ -110,7 +110,7 @@ const SearchUser = () => {
                       <h3>Cargo: </h3>
                       <p>{user.position || "Não especificado"}</p>
                     </div>
-                    <div className={style.campo}>
+                    <div className={style.categorias}>
                       <h3>Categorias: </h3>
                       <p>{formatadorCategorias(user.concat_categories) || "Não especificado"}</p>
                     </div>
