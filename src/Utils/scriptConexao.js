@@ -8,8 +8,8 @@ export async function addUser(
   empresa,
   data_nascimento
 ) {
-  const url = new URL("http://localhost:3001/client/addCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
+  // const url = new URL("http://localhost:3001/client/addCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/addCliente");
 
   const body = {
     nome: name,
@@ -34,8 +34,8 @@ export async function addUser(
 }
 
 export async function deleteCliente(phone){
-  const url = new URL("http://localhost:3001/client/deleteCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
+  // const url = new URL("http://localhost:3001/client/deleteCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/deleteCliente");
   
   const body = {
     phone: phone
@@ -53,8 +53,8 @@ export async function deleteCliente(phone){
 }
 
 export async function searchCliente(cpf){
-  const url = new URL("http://localhost:3001/client/searchCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
+  // const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
   
   const body = {
     cpf: cpf
@@ -72,8 +72,8 @@ export async function searchCliente(cpf){
 }
 
 export async function searchClienteByPhone(phone){
-  const url = new URL("http://localhost:3001/client/searchClienteByPhone");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/searchClienteByPhone");
+  // const url = new URL("http://localhost:3001/client/searchClienteByPhone");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchClienteByPhone");
   
   const body = {
     phone: phone
@@ -91,8 +91,8 @@ export async function searchClienteByPhone(phone){
 }
 
 export async function searchAllClients(){
-  const url = new URL("http://localhost:3001/client/searchCliente");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
+  // const url = new URL("http://localhost:3001/client/searchCliente");
+  const url = new URL("https://bdm-back-end.onrender.com/client/searchCliente");
 
   const response = await fetch(url, {
     method: "GET",
@@ -105,8 +105,8 @@ export async function searchAllClients(){
 }
 
 export async function login(password) {
-  const url = new URL("http://localhost:3001/client/login");
-  // const url = new URL("https://bdm-back-end.onrender.com/client/login");
+  // const url = new URL("http://localhost:3001/client/login");
+  const url = new URL("https://bdm-back-end.onrender.com/client/login");
   const body = {
     password: password
   };
@@ -125,8 +125,8 @@ export async function login(password) {
 
 let categorias = [];
 export async function listCategories() {
-  const url = new URL("http://localhost:3001/categorie/listCategories");
-  // const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
+  // const url = new URL("http://localhost:3001/categorie/listCategories");
+  const url = new URL("https://bdm-back-end.onrender.com/categorie/listCategories");
 
   const response = await fetch(url, { method: "GET" });
 
@@ -135,8 +135,8 @@ export async function listCategories() {
 }
 
 export async function listNewsByDateRange(data_inicio,data_fim,categoria){
-  const url = new URL("http://localhost:3001/news/SearchNews");
-  // const url = new URL("https://bdm-back-end.onrender.com/news/SearchNews");
+  // const url = new URL("http://localhost:3001/news/SearchNews");
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchNews");
 
   const body = {data_inicio,data_fim,categoria};
 
@@ -152,8 +152,8 @@ export async function listNewsByDateRange(data_inicio,data_fim,categoria){
 }
 
 export async function listNewsDetails(data_inicio,data_fim,categoria){
-  const url = new URL("http://localhost:3001/news/SearchNewsDetails");
-  // const url = new URL("https://bdm-back-end.onrender.com/news/SearchNewsDetails");
+  // const url = new URL("http://localhost:3001/news/SearchNewsDetails");
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchNewsDetails");
 
   const body = {data_inicio,data_fim,categoria};
 
