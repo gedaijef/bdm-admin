@@ -90,7 +90,7 @@ const SearchUser = () => {
                       </div>
                     </div>
                     <div className={style.row_info}>
-                      <div className={style.campo}>
+                      <div className={style.email}>
                         <h3>Email: </h3>
                         <p>{user.email || "Não especificado"}</p>
                       </div>
@@ -114,7 +114,7 @@ const SearchUser = () => {
                         <h3>Cargo: </h3>
                         <p>{user.position || "Não especificado"}</p>
                       </div>
-                      <div className={style.categorias}>
+                      <div className={style.campo}>
                         <h3>Categorias: </h3>
                         <p>
                           {formatadorCategorias(user.concat_categories) ||

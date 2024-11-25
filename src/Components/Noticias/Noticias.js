@@ -1,9 +1,14 @@
 import style from "./Noticias.module.css";
 import React, { useState, useEffect } from "react";
-import { listCategories, listNewsByDateRange } from "../../Utils/scriptConexao";
+import {
+  listCategories,
+  listNewsByDateRange,
+  listNewsDetails,
+} from "../../Utils/scriptConexao";
 import Select from "@mui/material/Select";
 import Introducao from "../Introducao/Introducao";
 import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -11,29 +16,28 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TextField } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import "dayjs/locale/pt-br";
 
 const Noticias = () => {
   const [selectedCategorias, setSelectedCategorias] = useState([]);
   const [categoria, setCategorias] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
   const [numLinhas, setNumLinhas] = useState("");
   const [numPessoas, setNumPessoas] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [dadosPesquisa, setDadosPesquisa] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showNews, setShowNews] = useState(false);
 
-  const focusCategoria = () => {
+  useEffect(() => {
     listCategories().then((resultado) => {
       setCategorias(
         resultado.map((item) => ({ value: item.id, label: item.name }))
       );
     });
-  };
-
-  useEffect(() => {
-    focusCategoria();
   }, []);
 
   const handleSelectChange = (event) => {
@@ -41,21 +45,13 @@ const Noticias = () => {
   };
 
   const handleStartDateChange = (newDate) => {
-    if (
-      newDate &&
-      (!endDate || newDate.isBefore(endDate)) &&
-      newDate.isBefore(dayjs())
-    ) {
+    if (newDate && newDate.isBefore(dayjs())) {
       setStartDate(newDate);
     }
   };
 
   const handleEndDateChange = (newDate) => {
-    if (
-      newDate &&
-      (!startDate || newDate.isAfter(startDate)) &&
-      newDate.isBefore(dayjs())
-    ) {
+    if (newDate && newDate.isAfter(startDate) && newDate.isBefore(dayjs())) {
       setEndDate(newDate);
     }
   };
@@ -64,7 +60,6 @@ const Noticias = () => {
     setIsLoading(true);
     setErrorMessage(null);
 
-    // Verifica se há categorias selecionadas. Se não houver, define como null.
     const selectedCategoryString =
       selectedCategorias.length > 0 ? selectedCategorias.join(",") : null;
     const dataInicio = startDate ? startDate.format("YYYY-MM-DD") : null;
@@ -80,8 +75,7 @@ const Noticias = () => {
           return `${dia}/${mes}/${ano}`;
         };
 
-        result = result.replace(/[^\d,]/g, "")
-        result = result.split(',')
+        result = result.replace(/[^\d,]/g, "").split(",");
         setNumLinhas(result[0]);
         setNumPessoas(result[1]);
         setDadosPesquisa({
@@ -100,8 +94,6 @@ const Noticias = () => {
               : `A partir de ${formatarData(dataInicio)}`
             : "Não especificada",
         });
-        setStartDate(null);
-        setEndDate(null);
       })
       .catch((error) => {
         console.error("Erro na busca:", error);
@@ -114,12 +106,58 @@ const Noticias = () => {
       });
   };
 
+  const clickNews = () => {
+    if (isLoadingNews) return; // Previne cliques enquanto carrega
+  
+    if (showNews) {
+      setShowNews(false);
+      return;
+    }
+  
+    setIsLoadingNews(true);
+    setErrorMessage(null);
+  
+    const selectedCategoryString =
+      selectedCategorias.length > 0 ? selectedCategorias.join(",") : null;
+    const dataInicio = startDate ? startDate.format("YYYY-MM-DD") : null;
+    const dataFim = endDate ? endDate.format("YYYY-MM-DD") : null;
+  
+    listNewsDetails(dataInicio, dataFim, selectedCategoryString)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.error) throw new Error(result.error);
+  
+        const noticiasFormatadas = result.map((noticia) => ({
+          content: noticia.content.substring(0, 100),
+          distributed: noticia.distributed ?? 0,
+        }));
+  
+        setDadosPesquisa((prev) => ({
+          ...prev,
+          noticias: noticiasFormatadas,
+        }));
+        setShowNews(true);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar notícias:", error);
+        setErrorMessage(
+          "Ocorreu um erro ao carregar as notícias. Tente novamente."
+        );
+      })
+      .finally(() => {
+        setIsLoadingNews(false);
+      });
+  };
+
   const clearFilters = () => {
     setSelectedCategorias([]);
     setStartDate(null);
     setEndDate(null);
     setDadosPesquisa(null);
     setErrorMessage(null);
+    setNumLinhas("");
+    setNumPessoas("");
+    setShowNews(false);
   };
 
   return (
@@ -132,12 +170,16 @@ const Noticias = () => {
         <FormControl>
           <Select
             multiple
-            className={style.selectCategoria}
             value={selectedCategorias}
-            onChange={handleSelectChange}
+            displayEmpty
+            className={style.inputs}
             MenuProps={{
               PaperProps: {
                 sx: {
+                  borderRadius: "5px",
+                  border: "1px solid #888888",
+                  minWidth: "20px",
+                  maxHeight: "300px",
                   "& .MuiMenuItem-root": {
                     transition: 1,
                     backgroundColor: "#ffffff",
@@ -161,22 +203,48 @@ const Noticias = () => {
                   },
                 },
               },
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              },
+              transformOrigin: {
+                vertical: "top",
+                horizontal: "left",
+              },
             }}
+            onChange={handleSelectChange}
             input={<OutlinedInput />}
-            displayEmpty
             renderValue={(selected) =>
-              selected.length === 0
-                ? "Selecione uma categoria"
-                : selected
-                    .map(
-                      (value) =>
-                        categoria.find((cat) => cat.value === value)?.label
-                    )
-                    .join(", ")
+              selected.length === 0 ? (
+                <span style={{ color: "#888888" }}>
+                  Selecione uma categoria
+                </span>
+              ) : (
+                selected
+                  .map(
+                    (value) =>
+                      categoria.find((cat) => cat.value === value)?.label
+                  )
+                  .join(", ")
+              )
             }
           >
+            <MenuItem disabled value="">
+              Selecione uma categoria
+            </MenuItem>
             {categoria.map((cat) => (
               <MenuItem key={cat.value} value={cat.value}>
+                <Checkbox
+                  checked={selectedCategorias.includes(cat.value)}
+                  sx={{
+                    color: selectedCategorias.includes(cat.value)
+                      ? "#181818"
+                      : "#888888",
+                    "&.Mui-checked": {
+                      color: "#ffffff",
+                    },
+                  }}
+                />
                 {cat.label}
               </MenuItem>
             ))}
@@ -189,7 +257,7 @@ const Noticias = () => {
             value={startDate}
             onChange={handleStartDateChange}
             maxDate={dayjs()}
-            inputFormat="DD/MM/YYYY"
+            format="DD/MM/YYYY"
             renderInput={(params) => <TextField {...params} />}
           />
           <DatePicker
@@ -198,7 +266,7 @@ const Noticias = () => {
             onChange={handleEndDateChange}
             minDate={startDate}
             maxDate={dayjs()}
-            inputFormat="DD/MM/YYYY"
+            format="DD/MM/YYYY"
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
@@ -235,6 +303,30 @@ const Noticias = () => {
                 <h3 className={style.legendaResultado}>Mensagens enviadas</h3>
               </div>
             </div>
+          </div>
+          <div className={style.mais}>
+            {dadosPesquisa?.noticias && showNews && (
+              <ul className={style.noticiasLista}>
+                {dadosPesquisa.noticias.map((noticia, index) => (
+                  <li key={index} className={style.noticiaItem}>
+                    <div className={style.contentDetails}>
+                      <p>{noticia.content}</p>
+                      <p>
+                        <strong>Vezes enviada: </strong>
+                        {noticia.distributed}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button className={style.btn_noticias} onClick={clickNews}>
+              {isLoadingNews
+                ? "Carregando..."
+                : showNews
+                ? "Mostrar menos"
+                : "Mostrar mais"}
+            </button>
           </div>
         </div>
       )}

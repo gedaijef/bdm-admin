@@ -3,13 +3,14 @@ import style from "./UserManager.module.css";
 import { addUser, listCategories } from "../../Utils/scriptConexao";
 import InputMask from "react-input-mask";
 import Introducao from "../Introducao/Introducao";
-import InputLabel from '@mui/material/InputLabel';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
+import InputLabel from "@mui/material/InputLabel";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
+import { Checkbox } from "@mui/material";
 
 const UserManager = () => {
   const theme = useTheme();
@@ -72,22 +73,27 @@ const UserManager = () => {
     const categoriasConcatenadas = selectedCategorias.join(",");
     const [dia, mes, ano] = birth.split('/');
     const dataFormatada = `${ano}-${mes}-${dia}`;
+    const nameCap = String(profession).charAt(0).toUpperCase() + String(profession).slice(1);
+    const professionCap = String(profession).charAt(0).toUpperCase() + String(profession).slice(1);
+    const companyCap = String(company).charAt(0).toUpperCase() + String(company).slice(1);
+    console.log(professionCap +" // "+ companyCap);
+    
 
     try {
       const response = await addUser(
         name,
         phone,
         email,
-        profession,
+        professionCap,
         cpf,
         categoriasConcatenadas,
-        company,
+        companyCap,
         dataFormatada
       );
       const result = await response.json();
       setIsLoading(false);
       if(result.status !== 201){
-        setResponseMessage(result.error)        
+        setResponseMessage(result.error)
       }else{
       setResponseMessage(result.message)
       clearFilters()
@@ -205,10 +211,15 @@ const UserManager = () => {
             <Select
               multiple
               value={selectedCategorias}
+              displayEmpty
               className={style.inputs}
               MenuProps={{
                 PaperProps: {
                   sx: {
+                    borderRadius: "5px",
+                    border: "1px solid #888888",
+                    minWidth: "20px", 
+                    maxHeight: "300px",
                     "& .MuiMenuItem-root": {
                       transition: 1,
                       backgroundColor: "#ffffff",
@@ -232,20 +243,48 @@ const UserManager = () => {
                     },
                   },
                 },
+                anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "left",
+                },
+                transformOrigin: {
+                  vertical: "top",
+                  horizontal: "left",
+                },
               }}
               onChange={handleSelectChange}
               input={<OutlinedInput />}
               renderValue={(selected) =>
-                selected
-                  .map(
-                    (value) =>
-                      categoria.find((cat) => cat.value === value)?.label
-                  )
-                  .join(", ")
+                selected.length === 0 ? (
+                  <span style={{ color: "#888888" }}>
+                    Selecione uma categoria
+                  </span>
+                ) : (
+                  selected
+                    .map(
+                      (value) =>
+                        categoria.find((cat) => cat.value === value)?.label
+                    )
+                    .join(", ")
+                )
               }
             >
+              <MenuItem disabled value="">
+                Selecione uma categoria
+              </MenuItem>
               {categoria.map((cat) => (
                 <MenuItem key={cat.value} value={cat.value}>
+                  <Checkbox
+                    checked={selectedCategorias.includes(cat.value)}
+                    sx={{
+                      color: selectedCategorias.includes(cat.value)
+                        ? "#181818"
+                        : "#888888",
+                      "&.Mui-checked": {
+                        color: "#ffffff",
+                      },
+                    }}
+                  />
                   {cat.label}
                 </MenuItem>
               ))}

@@ -1,56 +1,43 @@
+import React, { useState } from "react";
+import InputMask from "react-input-mask";
+import TextField from "@mui/material/TextField";
+import Introducao from "../Introducao/Introducao";
 import style from "./DeleteUser.module.css";
 import { deleteCliente, searchClienteByPhone } from "../../Utils/scriptConexao";
-import InputMask from "react-input-mask";
-import Introducao from "../Introducao/Introducao";
-import React, { useState, useEffect } from "react";
-import { addUser, listCategories } from "../../Utils/scriptConexao";
-import InputLabel from '@mui/material/InputLabel';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
 
 const DeleteUser = () => {
-  const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState(null);
-
-  const changeCpf = (event) => {
-    const numericCpf = event.target.value.replace(/\D/g, "");
-    setCpf(numericCpf);
-  };
 
   const changePhone = (event) => {
     const numericPhone = event.target.value.replace(/\D/g, "");
     setPhone(numericPhone);
   };
 
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const pastedData = event.clipboardData.getData("Text");
+    const numericPhone = pastedData.replace(/\D/g, ""); // Remove caracteres não numéricos
+    setPhone(numericPhone);
+  };
+
   const formatadorTelefone = (tel) => {
     if (!tel) return "";
-    const formatado = tel.replace(
-      /^(\d{2})(\d{2})(\d{5})(\d{4})$/,
-      "+$1($2)$3-$4"
-    );
-    return formatado;
+    return tel.replace(/^(\d{2})(\d{2})(\d{5})(\d{4})$/, "+$1 ($2) $3-$4");
   };
 
   const formatadorCpf = (cpf) => {
     if (!cpf) return "";
-    const formatado = cpf.replace(
-      /^(\d{3})(\d{3})(\d{3})(\d{2})$/,
-      `$1.$2.$3-$4`
-    );
-    return formatado;
+    return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
   };
 
-  const clickAdd = (event) => {
+  const clickAdd = () => {
     setIsLoading(true);
     setResponseMessage("");
     setUserData(null);
+
     searchClienteByPhone(phone)
       .then((response) => response.json())
       .then((data) => {
@@ -61,7 +48,7 @@ const DeleteUser = () => {
           setResponseMessage("Usuário não encontrado.");
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setResponseMessage("Erro ao buscar usuário.");
       })
       .finally(() => {
@@ -70,9 +57,14 @@ const DeleteUser = () => {
   };
 
   const deleteUser = () => {
-    setUserData(null);
-    setResponseMessage("Usuário deletado com sucesso.");
-    deleteCliente(phone);
+    deleteCliente(phone)
+      .then(() => {
+        setResponseMessage("Usuário deletado com sucesso.");
+        setUserData(null);
+      })
+      .catch(() => {
+        setResponseMessage("Erro ao deletar usuário.");
+      });
   };
 
   return (
@@ -81,26 +73,25 @@ const DeleteUser = () => {
         <Introducao
           color="#ffffff"
           titulo="Deletar Usuário"
-          texto={`
-            Pesquise o número de telefone do usuário que você deseja excluir
-            `}
+          texto={`Pesquise o número de telefone do usuário que você deseja excluir`}
         />
         <div className={style.form}>
           <div className={style.row}>
-          <InputMask
-            mask="+99 (99) 99999-9999"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-          >
-            {(inputProps) => (
-              <TextField
-                {...inputProps}
-                placeholder="Telefone"
-                className={style.inputs}
-                variant="outlined"
-              />
-            )}
-          </InputMask>
+            <InputMask
+              mask="+99 (99) 99999-9999"
+              value={phone}
+              onChange={changePhone}
+              onPaste={handlePaste} // Trata o evento de colagem
+            >
+              {(inputProps) => (
+                <TextField
+                  {...inputProps}
+                  placeholder="Telefone"
+                  className={style.inputs}
+                  variant="outlined"
+                />
+              )}
+            </InputMask>
             <button onClick={clickAdd} className={style.btn_pesquisa}>
               {isLoading ? "Carregando..." : "Pesquisar"}
             </button>
@@ -130,9 +121,6 @@ const DeleteUser = () => {
                   </div>
                 </div>
                 <div className={style.container_button}>
-                  {/* <button onClick={deleteUser} className={style.btn_edit}>
-                    Editar informações
-                  </button> */}
                   <button onClick={deleteUser} className={style.btn_exclude}>
                     Excluir usuário
                   </button>
