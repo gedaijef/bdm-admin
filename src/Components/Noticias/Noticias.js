@@ -59,6 +59,7 @@ const Noticias = () => {
   const clickSearch = () => {
     setIsLoading(true);
     setErrorMessage(null);
+    setShowNews(false)
 
     const selectedCategoryString =
       selectedCategorias.length > 0 ? selectedCategorias.join(",") : null;
@@ -76,8 +77,8 @@ const Noticias = () => {
         };
 
         result = result.replace(/[^\d,]/g, "").split(",");
-        setNumLinhas(result[0]);
-        setNumPessoas(result[1]);
+        setNumLinhas(result[0] || 0);
+        setNumPessoas(result[1] || 0);
         setDadosPesquisa({
           categoria:
             selectedCategorias.length > 0
@@ -128,7 +129,7 @@ const Noticias = () => {
         if (result.error) throw new Error(result.error);
   
         const noticiasFormatadas = result.map((noticia) => ({
-          content: noticia.content.substring(0, 100),
+          content: noticia.content.substring(0, 150),
           distributed: noticia.distributed ?? 0,
         }));
   
@@ -310,7 +311,7 @@ const Noticias = () => {
                 {dadosPesquisa.noticias.map((noticia, index) => (
                   <li key={index} className={style.noticiaItem}>
                     <div className={style.contentDetails}>
-                      <p>{noticia.content}</p>
+                      <p>{noticia.content}...</p>
                       <p>
                         <strong>Vezes enviada: </strong>
                         {noticia.distributed}
@@ -324,8 +325,8 @@ const Noticias = () => {
               {isLoadingNews
                 ? "Carregando..."
                 : showNews
-                ? "Mostrar menos"
-                : "Mostrar mais"}
+                ? "Ocultar detalhes"
+                : "Exibir detalhes"}
             </button>
           </div>
         </div>
