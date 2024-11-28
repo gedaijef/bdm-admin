@@ -173,7 +173,7 @@ const Noticias = () => {
             multiple
             value={selectedCategorias}
             displayEmpty
-            className={style.inputs}
+            className={style.select}
             MenuProps={{
               PaperProps: {
                 sx: {
