@@ -17,6 +17,11 @@ h1{
     align-items: center;
     display: flex;
     justify-content: center;
+}
+
+.option{
+    display: flex;
+    align-items: center;
     cursor: pointer;
 }
 
