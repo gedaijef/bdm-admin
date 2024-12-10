@@ -9,10 +9,10 @@ const LoginOverlay = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Verifica se há uma entrada de login no localStorage ao carregar o componente
+    
     const userLoggedIn = localStorage.getItem("userLoggedIn");
     if (userLoggedIn === "true") {
-      setIsLoggedIn(true); // Oculte o login se o usuário já tiver logado anteriormente
+      setIsLoggedIn(true);
     }
   }, []);
 

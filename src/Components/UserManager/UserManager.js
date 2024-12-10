@@ -76,7 +76,6 @@ const UserManager = () => {
     const nameCap = String(profession).charAt(0).toUpperCase() + String(profession).slice(1);
     const professionCap = String(profession).charAt(0).toUpperCase() + String(profession).slice(1);
     const companyCap = String(company).charAt(0).toUpperCase() + String(company).slice(1);
-    console.log(professionCap +" // "+ companyCap);
     
 
     try {
