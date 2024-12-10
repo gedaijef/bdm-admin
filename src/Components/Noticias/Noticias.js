@@ -1,9 +1,11 @@
 import style from "./Noticias.module.css";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   listCategories,
   listNewsByDateRange,
   listNewsDetails,
+  listSpecificNews,
 } from "../../Utils/scriptConexao";
 import Select from "@mui/material/Select";
 import Introducao from "../Introducao/Introducao";
@@ -32,6 +34,8 @@ const Noticias = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [showNews, setShowNews] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     listCategories().then((resultado) => {
       setCategorias(
@@ -45,21 +49,25 @@ const Noticias = () => {
   };
 
   const handleStartDateChange = (newDate) => {
+    console.log(newDate)
     if (newDate && newDate.isBefore(dayjs())) {
       setStartDate(newDate);
     }
   };
 
   const handleEndDateChange = (newDate) => {
-    if (newDate && newDate.isAfter(startDate) && newDate.isBefore(dayjs())) {
+    console.log(newDate);
+    if (newDate && newDate.isBefore(dayjs())) {
       setEndDate(newDate);
     }
   };
 
   const clickSearch = () => {
+    console.log(endDate+" -- "+startDate)
+
     setIsLoading(true);
     setErrorMessage(null);
-    setShowNews(false)
+    setShowNews(false);
 
     const selectedCategoryString =
       selectedCategorias.length > 0 ? selectedCategorias.join(",") : null;
@@ -109,30 +117,48 @@ const Noticias = () => {
 
   const clickNews = () => {
     if (isLoadingNews) return; // Previne cliques enquanto carrega
-  
+
     if (showNews) {
       setShowNews(false);
       return;
     }
-  
+
     setIsLoadingNews(true);
     setErrorMessage(null);
-  
+
     const selectedCategoryString =
       selectedCategorias.length > 0 ? selectedCategorias.join(",") : null;
     const dataInicio = startDate ? startDate.format("YYYY-MM-DD") : null;
     const dataFim = endDate ? endDate.format("YYYY-MM-DD") : null;
-  
+
     listNewsDetails(dataInicio, dataFim, selectedCategoryString)
       .then((response) => response.json())
       .then((result) => {
         if (result.error) throw new Error(result.error);
-  
-        const noticiasFormatadas = result.map((noticia) => ({
-          content: noticia.content.substring(0, 150),
-          distributed: noticia.distributed ?? 0,
-        }));
-  
+
+        const noticiasFormatadas = result.map((noticia) => {
+          let dataFormatada = null;
+          let contentFormatado = noticia.content
+
+          if (noticia.date) {
+            const [ano, mes, dia] = noticia.date.split("T")[0].split("-");
+            dataFormatada = `${dia}/${mes}/${ano}`;
+          }
+
+          if (noticia.content.length > 350){
+            contentFormatado = noticia.content.substring(0,350)+"..."
+          }
+          
+          return {
+            content: contentFormatado,
+            distributed: noticia.distributed === null ? 0 : noticia.distributed,
+            id: noticia.id ?? null,
+            time: noticia.time ?? null,
+            date: dataFormatada,
+          };
+        });
+
+
         setDadosPesquisa((prev) => ({
           ...prev,
           noticias: noticiasFormatadas,
@@ -150,6 +176,10 @@ const Noticias = () => {
       });
   };
 
+  const handleViewDetails = (id) => {
+    navigate(`/noticias/${id}`);
+  };
+
   const clearFilters = () => {
     setSelectedCategorias([]);
     setStartDate(null);
@@ -158,7 +188,7 @@ const Noticias = () => {
     setErrorMessage(null);
     setNumLinhas("");
     setNumPessoas("");
-    setShowNews(false);
+    setShowNews(false);    
   };
 
   return (
@@ -310,12 +340,19 @@ const Noticias = () => {
               <ul className={style.noticiasLista}>
                 {dadosPesquisa.noticias.map((noticia, index) => (
                   <li key={index} className={style.noticiaItem}>
-                    <div className={style.contentDetails}>
-                      <p>{noticia.content}...</p>
-                      <p>
-                        <strong>Vezes enviada: </strong>
-                        {noticia.distributed}
-                      </p>
+                    <div
+                      onClick={() => handleViewDetails(noticia.id)}
+                      className={style.contentDetails}
+                    >
+                      <p className={style.content}>{noticia.content}</p>
+                      <div className={style.rightContainer}>
+                        <p className={style.id}><strong>ID: </strong>{noticia.id}</p>
+                        <p className={style.date}><strong>Enviado: </strong>{noticia.date} {noticia.time}</p>
+                        <p className={style.distributed}>
+                          <strong>Vezes enviada: </strong>
+                          {noticia.distributed}
+                        </p>
+                      </div>
                     </div>
                   </li>
                 ))}

@@ -10,6 +10,7 @@ import DeleteUser from "../DeleteUser/DeleteUser";
 import TradingView from "../TradingView/TradingView";
 import SearchUser from "../SearchUser/SearchUser"
 import Login from "../Login/Login"
+import DetalheNoticia from "../DetalhesNoticia/DetalhesNoticia"
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="listar-usuario" element={<SearchUser />} />
           <Route path="/" element={<Home/>} />
           <Route path="/noticias" element={<Noticias/>} />
+          <Route path="/noticias/:id" element={<DetalheNoticia />} />
         </Routes>
       </div>
     </Router>

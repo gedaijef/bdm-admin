@@ -1,7 +1,7 @@
-.container{
+.container {
     align-items: center;
     margin: 1rem;
-    padding-inline: 12px; 
+    padding-inline: 12px;
     display: flex;
     gap: 24px;
 }
@@ -10,13 +10,11 @@
 
 .content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     padding-inline: 3rem;
     padding-bottom: 4rem;
 }
 
-.btn_pesquisa{
+.btn_pesquisa {
     height: 40px;
     width: fit-content;
     background-color: #181818;
@@ -25,58 +23,71 @@
     padding: 8px 30px;
 }
 
-.buttonContainer{
+.buttonContainer {
     display: flex;
     gap: 1rem;
 }
 
-.btn_limpar{
+.btn_limpar {
     border: 1px solid #181818;
     color: black;
     background-color: #00000000;
 }
 
-.btn_limpar:hover{
+.noticiaItem {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: 0.5s;
+}
+
+.noticiaItem:hover {
+    background-color: #18181820;
+}
+
+.btn_limpar:hover {
     color: white;
 }
 
-.cards{
+.cards {
     gap: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.resultado{
+.resultado {
     padding: 2rem;
 }
 
-.conteudoResultado{
+.conteudoResultado {
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.p{
+.p {
     text-align: center;
 }
 
-.selectCategoria{
+.selectCategoria {
     width: 15rem;
 }
 
-.select{
+.select {
     width: 30rem;
 }
 
-.noticiasLista{
+.noticiasLista {
+    list-style-type: none;
     padding: 2rem 2rem;
 }
 
-.card{
+.card {
     background-color: #181818;
     border-radius: 1rem;
-    padding : 5rem;
+    padding: 5rem;
     text-align: center;
     color: white;
     width: 100%;
@@ -87,32 +98,45 @@
     align-items: center;
 }
 
-.contentDetails{
+.contentDetails {
+    width: 100%;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.mais{
+
+
+.mais {
     margin-top: 2rem;
 }
 
 
-.row_info{
+.row_info {
     display: flex;
     gap: 100px;
     justify-content: center;
 }
 
-.error{
+.content{
+    width: 50%;
+}
+
+.rightContainer{
+    display: flex;
+    gap: 3rem;
+}
+
+.error {
     display: flex;
     align-items: center;
 }
 
-.numLinhas{
+.numLinhas {
     font-size: 50px;
 }
 
-.legendaResultado{
+.legendaResultado {
     font-size: 15px;
 }

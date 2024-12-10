@@ -167,3 +167,23 @@ export async function listNewsDetails(data_inicio,data_fim,categoria){
 
   return response;
 }
+
+export async function listSpecificNews(id){
+  //const url = new URL("http://localhost:3001/news/SearchSpecificNews");
+  const url = new URL("https://bdm-back-end.onrender.com/news/SearchSpecificNews");
+
+  
+  const body = {
+    "id":id
+  };
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}

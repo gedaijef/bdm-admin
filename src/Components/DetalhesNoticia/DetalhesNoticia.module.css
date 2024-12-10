@@ -1,0 +1,40 @@
+.detailContainer{
+    padding: 1rem;
+}
+
+.card{
+    background-color: #181818;
+    border-radius: 1rem;
+    padding : 5rem;
+    text-align: center;
+    color: white;
+    height: 10rem;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.conteudoResultado{
+    overflow-y: auto;
+}
+
+.contentContainer{
+    padding: 1rem 2rem 4rem;
+}
+
+.content{
+    font-size: 30px;
+}
+
+.cards{
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info{
+    font-size: 40px;
+}
