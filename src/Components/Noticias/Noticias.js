@@ -28,6 +28,7 @@ const Noticias = () => {
   const [isLoadingNews, setIsLoadingNews] = useState(false);
   const [numLinhas, setNumLinhas] = useState("");
   const [numPessoas, setNumPessoas] = useState("");
+  const [qntPessoas, setQntPessoas] = useState("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [dadosPesquisa, setDadosPesquisa] = useState(null);
@@ -87,6 +88,7 @@ const Noticias = () => {
         result = result.replace(/[^\d,]/g, "").split(",");
         setNumLinhas(result[0] || 0);
         setNumPessoas(result[1] || 0);
+        setQntPessoas(result[2] || 0)
         setDadosPesquisa({
           categoria:
             selectedCategorias.length > 0
@@ -334,6 +336,12 @@ const Noticias = () => {
                 <h3 className={style.legendaResultado}>Mensagens enviadas</h3>
               </div>
             </div>
+            <div className={style.card}>
+              <div className={style.conteudoResultado}>
+                <h3 className={style.numLinhas}>{qntPessoas}</h3>
+                <h3 className={style.legendaResultado}>Pessoas receberam</h3>
+              </div>
+            </div>
           </div>
           <div className={style.mais}>
             {dadosPesquisa?.noticias && showNews && (
@@ -347,9 +355,9 @@ const Noticias = () => {
                       <p className={style.content}>{noticia.content}</p>
                       <div className={style.rightContainer}>
                         <p className={style.id}><strong>ID: </strong>{noticia.id}</p>
-                        <p className={style.date}><strong>Enviado: </strong>{noticia.date} {noticia.time}</p>
+                        <p className={style.date}><strong>Enviado: </strong>{noticia.date} <strong> às </strong> {noticia.time}</p>
                         <p className={style.distributed}>
-                          <strong>Vezes enviada: </strong>
+                          <strong>Usuários que receberam: </strong>
                           {noticia.distributed}
                         </p>
                       </div>
