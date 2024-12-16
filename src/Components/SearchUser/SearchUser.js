@@ -32,11 +32,24 @@ const SearchUser = () => {
   }, []);
 
   const formatadorTelefone = (tel) => {
+    let formatado = ''
+    console.log(tel)
     if (!tel) return "Não especificado";
-    const formatado = tel.replace(
+    if (tel.length == 12){
+      console.log('entrou');
+      
+      formatado = tel.replace(
+        /^(\d{2})(\d{2})(\d{4})(\d{4})$/,
+        "+$1($2)$3-$4"
+      )
+      console.log('saiu assim = '+formatado);
+      
+    }else{
+    formatado = tel.replace(
       /^(\d{2})(\d{2})(\d{5})(\d{4})$/,
       "+$1($2)$3-$4"
     );
+  }
     return formatado;
   };
 
