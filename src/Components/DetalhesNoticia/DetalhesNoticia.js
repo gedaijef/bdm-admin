@@ -72,7 +72,7 @@ const DetalhesNoticia = () => {
       <div className={style.cards}>
         <div className={style.card}>
           <div className={style.conteudoResultado}>
-            <h5 className={style.legendaResultado}>Vezes enviada:</h5>
+            <h5 className={style.legendaResultado}>Pessoas que receberam:</h5>
             <h3 className={style.info}>{distributedFormatado}</h3>
           </div>
         </div>
