@@ -50,21 +50,18 @@ const Noticias = () => {
   };
 
   const handleStartDateChange = (newDate) => {
-    console.log(newDate)
     if (newDate && newDate.isBefore(dayjs())) {
       setStartDate(newDate);
     }
   };
 
   const handleEndDateChange = (newDate) => {
-    console.log(newDate);
     if (newDate && newDate.isBefore(dayjs())) {
       setEndDate(newDate);
     }
   };
 
   const clickSearch = () => {
-    console.log(endDate+" -- "+startDate)
 
     setIsLoading(true);
     setErrorMessage(null);

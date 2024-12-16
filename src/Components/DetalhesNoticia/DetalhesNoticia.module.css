@@ -24,10 +24,6 @@
     padding: 1rem 2rem 4rem;
 }
 
-.content{
-    font-size: 30px;
-}
-
 .cards{
     gap: 1rem;
     display: flex;

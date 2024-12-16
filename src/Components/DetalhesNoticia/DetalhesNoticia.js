@@ -11,25 +11,17 @@ const DetalhesNoticia = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   function formatString(noticia) {
-    console.log("Entrada da função formatString:", noticia);
 
     let noticiaFormatada = noticia;
 
     noticiaFormatada = noticiaFormatada.replace(/\*(.*?)\*/g, "**$1**\n\n");
-    console.log("Após substituir negrito:", noticiaFormatada);
 
     noticiaFormatada = noticiaFormatada.replace(/^\+\+(.*)$/gm, "$1\n\n");
-    console.log("Após substituir ++:", noticiaFormatada);
 
     noticiaFormatada = noticiaFormatada.replace(/^▪(.*)$/gm, "$1\n\n");
-    console.log("Após substituir ▪:", noticiaFormatada);
 
     noticiaFormatada = noticiaFormatada.replace(/_(.*?)_/g, "*$1*");
-    console.log("Após substituir itálico:", noticiaFormatada);
-
-    console.log(noticiaFormatada);
-    console.log("renato\nbarros");
-
+    
     return noticiaFormatada;
   }
 
@@ -71,12 +63,6 @@ const DetalhesNoticia = () => {
   return (
     <div className={style.detailContainer}>
       <div className={style.contentContainer}>
-        <h3
-          className={style.content}
-          dangerouslySetInnerHTML={{ __html: formatString(noticia.content) }}
-        />
-        <br />
-        <br />
         <h3 className={style.content}>
           <ReactMarkdown className={style.content}>
             {formatString(noticia.content)}
