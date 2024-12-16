@@ -5,7 +5,7 @@
 .card{
     background-color: #181818;
     border-radius: 1rem;
-    padding : 5rem;
+    padding : 3rem;
     text-align: center;
     color: white;
     height: 10rem;
@@ -32,5 +32,5 @@
 }
 
 .info{
-    font-size: 40px;
+    font-size: 20px;
 }
